@@ -18,26 +18,31 @@
 <h3 style="text-align: center" >Accidents</h3>
 <p class="lead" style="text-align: center">
 <div class="container" width="70%">
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Название</th>
-        <th scope="col">Описание</th>
-        <th scope="col">Адрес</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="accident" items="${accidents}">
+    <ul class="nav">
+        <li class="nav-item">
+            <a href="<c:url value='/create'/>">Добавить инцидент</a>
+        </li>
+    </ul>
+    <table class="table">
+        <thead>
         <tr>
-            <th scope="row"></th>
-            <td><c:out value="${accident.name}"/></td>
-            <td><c:out value="${accident.text}"/></td>
-            <td><c:out value="${accident.address}"/></td>
+            <th scope="col">#</th>
+            <th scope="col">Название</th>
+            <th scope="col">Описание</th>
+            <th scope="col">Адрес</th>
         </tr>
-    </c:forEach>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <c:forEach var="accident" items="${accidents}">
+            <tr>
+                <th scope="row"><a href="<c:url value='/edit?id=${accident.id}'/>"><i class="fa fa-edit mr-3"></i></a></th>
+                <td><c:out value="${accident.name}"/></td>
+                <td><c:out value="${accident.text}"/></td>
+                <td><c:out value="${accident.address}"/></td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

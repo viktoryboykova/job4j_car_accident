@@ -7,13 +7,18 @@ import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.repository.AccidentMem;
 
 import java.util.Collection;
-import java.util.List;
 
 @Controller
 public class IndexControl {
+    private final AccidentMem accidentMem;
+
+    public IndexControl(AccidentMem accidents) {
+        this.accidentMem = accidents;
+    }
+
     @GetMapping("/")
     public String index(Model model) {
-        Collection<Accident> accidents = new AccidentMem().getAllAccidents();
+        Collection<Accident> accidents = accidentMem.getAllAccidents();
         model.addAttribute("accidents", accidents);
         return "index";
     }
