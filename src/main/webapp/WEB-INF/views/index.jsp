@@ -31,6 +31,7 @@
             <th scope="col">Описание</th>
             <th scope="col">Адрес</th>
             <th scope="col">Тип</th>
+            <th scope="col">Статьи</th>
         </tr>
         </thead>
         <tbody>
@@ -41,6 +42,11 @@
                 <td><c:out value="${accident.text}"/></td>
                 <td><c:out value="${accident.address}"/></td>
                 <td><c:out value="${accident.type.name}"/></td>
+                <td>
+                    <c:forEach var="rule" items="${accident.rules}" >
+                        <c:out value="${rule.name}"/>
+                    </c:forEach>
+                </td>
             </tr>
         </c:forEach>
         </tbody>
