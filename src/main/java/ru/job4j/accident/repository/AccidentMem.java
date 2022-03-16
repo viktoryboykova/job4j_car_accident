@@ -1,7 +1,6 @@
 package ru.job4j.accident.repository;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.util.AutoPopulatingList;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
@@ -11,9 +10,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class AccidentMem {
-    private HashMap<Integer, Accident> accidents = new HashMap<>();
-    private List<AccidentType> types = new ArrayList<>();
-    private List<Rule> rules = new ArrayList<>();
+    private final HashMap<Integer, Accident> accidents = new HashMap<>();
+    private final List<AccidentType> types = new ArrayList<>();
+    private final List<Rule> rules = new ArrayList<>();
     private final AtomicInteger counter = new AtomicInteger(0);
 
     public AccidentMem() {
