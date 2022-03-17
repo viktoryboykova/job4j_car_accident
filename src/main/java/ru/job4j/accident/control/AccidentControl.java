@@ -7,37 +7,42 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.accident.model.Accident;
-import ru.job4j.accident.repository.AccidentJdbcTemplate;
+import ru.job4j.accident.model.Rule;
+import ru.job4j.accident.repository.AccidentHibernate;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class AccidentControl {
-    private final AccidentJdbcTemplate accidentJdbcTemplate;
+    private final AccidentHibernate accidentHibernate;
 
-    public AccidentControl(AccidentJdbcTemplate accidents) {
-        this.accidentJdbcTemplate = accidents;
+    public AccidentControl(AccidentHibernate accidents) {
+        this.accidentHibernate = accidents;
     }
 
     @GetMapping("/create")
     public String create(Model model) {
-        model.addAttribute("types", accidentJdbcTemplate.getAllTypes());
-        model.addAttribute("rules", accidentJdbcTemplate.getAllRules());
+        model.addAttribute("types", accidentHibernate.getAllTypes());
+        model.addAttribute("rules", accidentHibernate.getAllRules());
         return "accident/create";
     }
 
     @GetMapping("/edit")
     public String edit(@RequestParam("id") int id, Model model) {
-        model.addAttribute("accident", accidentJdbcTemplate.findAccidentById(id));
-        model.addAttribute("types", accidentJdbcTemplate.getAllTypes());
-        model.addAttribute("rules", accidentJdbcTemplate.getAllRules());
+        model.addAttribute("accident", accidentHibernate.findAccidentById(id));
+        model.addAttribute("types", accidentHibernate.getAllTypes());
+        model.addAttribute("rules", accidentHibernate.getAllRules());
         return "accident/edit";
     }
 
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
-        String[] ids = req.getParameterValues("rIds");
-        accidentJdbcTemplate.save(accident, ids);
+        String[] rIds = req.getParameterValues("rIds");
+        accident.setType(accidentHibernate.findAccidentTypeById(accident.getType().getId()));
+        for (Rule rule : accidentHibernate.createRulesForCurrentAccident(rIds)) {
+            accident.getRules().add(rule);
+        }
+        accidentHibernate.saveAccident(accident);
         return "redirect:/";
     }
 }
