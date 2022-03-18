@@ -37,12 +37,6 @@ public class AccidentHibernate {
         return tx(session -> session.get(Rule.class, ruleId));
     }
 
-    public Set<Rule> createRulesForCurrentAccident(String[] rIds) {
-        Set<Rule> rules = new HashSet<>();
-        Arrays.stream(rIds).forEach(rId -> rules.add(findRuleById(Integer.parseInt(rId))));
-        return rules;
-    }
-
     public List<Accident> getAllAccidents() {
         return tx(session -> session
                 .createQuery("select distinct a from Accident a join fetch a.type join fetch a.rules")
