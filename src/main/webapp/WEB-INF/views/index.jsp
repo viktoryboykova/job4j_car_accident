@@ -23,6 +23,9 @@
             <a href="<c:url value='/logout'/>">Выйти</a>
         </li>
     </ul>
+    <div>
+        Login as : ${user.username}
+    </div>
     <table class="table">
         <thead>
         <tr>
