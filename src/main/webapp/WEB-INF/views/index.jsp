@@ -20,7 +20,7 @@
 <div class="container" width="70%">
     <ul class="nav">
         <li class="nav-item">
-            <a href="<c:url value='/create'/>">Добавить инцидент</a>
+            <a href="<c:url value='/logout'/>">Выйти</a>
         </li>
     </ul>
     <table class="table">
@@ -51,6 +51,11 @@
         </c:forEach>
         </tbody>
     </table>
+    <ul class="nav">
+        <li class="nav-item">
+            <a href="<c:url value='/create'/>">Добавить инцидент</a>
+        </li>
+    </ul>
 </div>
 </body>
 </html>
